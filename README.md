@@ -10,4 +10,4 @@ Once installed, you need to set the `MILESTONER_GITHUB_API_TOKEN` environnement 
 
 ## Running
 
-Run `./milestoner.py`. It accepts no arguments at the moment. It will automatically create missing milestones and close old ones.
+Run `./milestoner.py`. It accepts no arguments at the moment. It will automatically create missing milestones (and close old ones once this feature is implemented)
