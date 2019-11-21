@@ -1,22 +1,13 @@
-Quick & dirty script to create & close weekly milestones for AMO projects
+# Purpose
 
-== Purpose ==
+Automically creates weekly milestones for the next 5 weeks on `mozilla/addons`, `mozilla/addons-frontend`, `mozilla/addons-server`, `mozilla/addons-linter` and `mozilla/addons-code-manager`.
 
-Automically creates weekly milestones for the next 5 weeks on `mozilla/addons`,
-`mozilla/addons-frontend`, `mozilla/addons-server`, `mozilla/addons-linter` and
-`mozilla/addons-code-manager`.
+## Installing
 
-== Installing ==
+Because it requires Python 3.8 as well as requests, it can be a little annoying to install. You can use pyenv + a virtualenv, or a docker image with python 3.8 and requests installed.
 
-Because it requires Python 3.8 as well as requests, it can be a little annoying
-to install. You can use pyenv + a virtualenv, or a docker image with python 3.8
-and requests installed.
+Once installed, you need to set the `MILESTONER_GITHUB_API_TOKEN` environnement variable with a valid github API token that can retrieve and modify milestones for the repositories.
 
-Once installed, you need to set the `MILESTONER_GITHUB_API_TOKEN` environnement
-variable with a valid github API token that can retrieve and modify milestones
-for the repositories.
+## Running
 
-== Running ==
-
-Run `./milestoner.py`. It accepts no arguments at the moment. It will
-automatically create missing milestones and close old ones.
+Run `./milestoner.py`. It accepts no arguments at the moment. It will automatically create missing milestones and close old ones.
