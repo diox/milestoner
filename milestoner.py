@@ -117,7 +117,7 @@ class Milestoner:
 if __name__ == '__main__':
     repos = (
         'addons', 'addons-frontend', 'addons-server', 'addons-linter',
-        'addons-code-manager'
+        'addons-code-manager', 'addons-blog',
     )
     for repo in repos:
         m = Milestoner(owner='mozilla', repo=repo)
