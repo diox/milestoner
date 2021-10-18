@@ -24,7 +24,8 @@ class Milestoner:
         query_string = urllib.parse.urlencode(query) if query else None
         url = f'{prefix}/{self.owner}/{self.repo}/{subject}?{query_string}'
         response = getattr(requests, verb)(
-            url, data=json.dumps(data) if data else None, headers=headers)
+            url, data=json.dumps(data) if data else None, headers=headers
+        )
         if response.status_code >= 400:
             print(f'Request failed for {verb} {url} !')
         return response.json()
@@ -53,13 +54,11 @@ class Milestoner:
         closing them regularly.
         """
         if self.existing_milestones_data is None:
-            self.existing_milestones_data = self.github_request(
-                'get', 'milestones')
+            self.existing_milestones_data = self.github_request('get', 'milestones')
         existing_milestones = []
         for data in self.existing_milestones_data:
             try:
-                milestone = datetime.datetime.strptime(
-                    data['title'], '%Y.%m.%d').date()
+                milestone = datetime.datetime.strptime(data['title'], '%Y.%m.%d').date()
                 existing_milestones.append(milestone)
             except ValueError:
                 print(f'Ignoring broken existing milestone {data["title"]}')
@@ -77,9 +76,7 @@ class Milestoner:
         existing_milestones = self.fetch_existing_open_milestones()
 
         # Find the ones we're missing.
-        missing_milestones = (
-            set(desired_milestones).difference(existing_milestones)
-        )
+        missing_milestones = set(desired_milestones).difference(existing_milestones)
         print(f'We are missing {missing_milestones} on {self.repo}')
 
         # Create them, including due date 48 hours before target.
@@ -89,13 +86,13 @@ class Milestoner:
             # format.
             due_date = milestone - datetime.timedelta(days=2)
             due_date = datetime.datetime.combine(
-                due_date, datetime.datetime.min.time()).replace(
-                    tzinfo=datetime.timezone.utc)
+                due_date, datetime.datetime.min.time()
+            ).replace(tzinfo=datetime.timezone.utc)
             data = {
                 'title': milestone.strftime('%Y.%m.%d'),
                 'state': 'open',
                 'description': '',
-                'due_on': due_date.isoformat()
+                'due_on': due_date.isoformat(),
             }
             data = self.github_request('post', 'milestones', data=data)
             if 'id' in data:
@@ -105,7 +102,7 @@ class Milestoner:
                 print(data)
 
     def close_previous_milestones(self):
-        """Close milestones that have a due date more than 72 hours in the
+        """Close milestones that have a due date more than 3 days in the
         past."""
         existing_milestones = self.fetch_existing_open_milestones()
         for milestone_data in self.existing_milestones_data:
@@ -116,8 +113,12 @@ class Milestoner:
 
 if __name__ == '__main__':
     repos = (
-        'addons', 'addons-frontend', 'addons-server', 'addons-linter',
-        'addons-code-manager', 'addons-blog',
+        'addons',
+        'addons-frontend',
+        'addons-server',
+        'addons-linter',
+        'addons-code-manager',
+        'addons-blog',
     )
     for repo in repos:
         m = Milestoner(owner='mozilla', repo=repo)
