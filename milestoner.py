@@ -21,13 +21,14 @@ class Milestoner:
             'Accept': 'application/json',
         }
         prefix = 'https://api.github.com/repos'
-        query_string = urllib.parse.urlencode(query) if query else None
-        url = f'{prefix}/{self.owner}/{self.repo}/{subject}?{query_string}'
+        query_string = '?' + urllib.parse.urlencode(query) if query else ''
+        url = f'{prefix}/{self.owner}/{self.repo}/{subject}{query_string}'
         response = getattr(requests, verb)(
             url, data=json.dumps(data) if data else None, headers=headers
         )
         if response.status_code >= 400:
             print(f'Request failed for {verb} {url} !')
+            print(response.json())
         return response.json()
 
     def get_desired_milestones(self, num=5):
@@ -104,11 +105,21 @@ class Milestoner:
     def close_previous_milestones(self):
         """Close milestones that have a due date more than 3 days in the
         past."""
-        existing_milestones = self.fetch_existing_open_milestones()
+        # Load the raw milestone_data we'll need if we don't already have it,
+        # but ignore the return value, it's not enough for what we need here.
+        if self.existing_milestones_data is None:
+            self.fetch_existing_open_milestones()
+        now = datetime.datetime.now()
         for milestone_data in self.existing_milestones_data:
-            # FIXME: convert due_on back into a date, check if it's past, if
-            # it is send an update to close it using its id.
-            pass
+            due_date = datetime.datetime.fromisoformat(
+                milestone_data['due_on'].strip('Z')
+            )
+            if now > due_date + datetime.timedelta(days=3):
+                print(f'Closing milestone {milestone_data["title"]} on {self.repo}')
+                data = {'state': 'closed'}
+                self.github_request(
+                    'patch', f'milestones/{milestone_data["number"]}', data=data
+                )
 
 
 if __name__ == '__main__':
