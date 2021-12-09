@@ -4,7 +4,7 @@ Automatically creates and closes weekly milestones on `mozilla/addons`, `mozilla
 
 ## Installing
 
-It requires Python 3.8 with `requests`.
+It requires Python 3.8+ with `requests`.
 
 Once installed, you need to set the `MILESTONER_GITHUB_API_TOKEN` environnement variable with a valid github API token that can retrieve and modify milestones for the repositories.
 
