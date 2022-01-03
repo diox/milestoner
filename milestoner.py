@@ -113,8 +113,8 @@ class Milestoner:
         for milestone_data in self.existing_milestones_data:
             due_date = datetime.datetime.fromisoformat(
                 milestone_data['due_on'].strip('Z')
-            )
-            if now > due_date + datetime.timedelta(days=3):
+            ) if milestone_data['due_on'] else None
+            if due_date and now > due_date + datetime.timedelta(days=3):
                 print(f'Closing milestone {milestone_data["title"]} on {self.repo}')
                 data = {'state': 'closed'}
                 self.github_request(
