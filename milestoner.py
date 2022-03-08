@@ -130,6 +130,7 @@ if __name__ == '__main__':
         'addons-linter',
         'addons-code-manager',
         'addons-blog',
+        'extension-workshop',
     )
     for repo in repos:
         m = Milestoner(owner='mozilla', repo=repo)
