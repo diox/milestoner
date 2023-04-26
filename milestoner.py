@@ -39,11 +39,11 @@ class Milestoner:
         to be a bottleneck anyway."""
         desired_milestones = []
         year, week, day = datetime.date.today().isocalendar()
-        for target in range(week, min(53, week + num)):  # 53 for leap years.
+        for target in range(week, week + num):
             try:
                 thursday = datetime.date.fromisocalendar(year, target, 4)
             except ValueError:
-                print('Skipping week {target}, it is missing the target day')
+                thursday = datetime.date.fromisocalendar(year + 1, 1, 4)
             desired_milestones.append(thursday)
         return desired_milestones
 
@@ -111,9 +111,11 @@ class Milestoner:
             self.fetch_existing_open_milestones()
         now = datetime.datetime.now()
         for milestone_data in self.existing_milestones_data:
-            due_date = datetime.datetime.fromisoformat(
-                milestone_data['due_on'].strip('Z')
-            ) if milestone_data['due_on'] else None
+            due_date = (
+                datetime.datetime.fromisoformat(milestone_data['due_on'].strip('Z'))
+                if milestone_data['due_on']
+                else None
+            )
             if due_date and now > due_date + datetime.timedelta(days=3):
                 print(f'Closing milestone {milestone_data["title"]} on {self.repo}')
                 data = {'state': 'closed'}
