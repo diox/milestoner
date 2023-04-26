@@ -1,6 +1,6 @@
 # Purpose
 
-Automatically creates and closes weekly milestones on `mozilla/addons`, `mozilla/addons-frontend`, `mozilla/addons-server`, `mozilla/addons-linter`, `mozilla/addons-code-manager` and `mozilla/addons-blog`.
+Automatically creates and closes weekly milestones on `mozilla/addons`, `mozilla/addons-frontend`, `mozilla/addons-server`, `mozilla/addons-linter`, `mozilla/addons-code-manager`, `mozilla/addons-blog`, `mozilla/extension-workshop` and `mozilla/web-ext`.
 
 ## Installing
 
