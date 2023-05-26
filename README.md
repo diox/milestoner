@@ -1,6 +1,6 @@
 # Purpose
 
-Automatically creates and closes weekly milestones on `mozilla/addons`, `mozilla/addons-frontend`, `mozilla/addons-server`, `mozilla/addons-linter`, `mozilla/addons-code-manager`, `mozilla/addons-blog`, `mozilla/extension-workshop` and `mozilla/web-ext`.
+Automatically creates and closes milestones on `mozilla/addons`, `mozilla/addons-frontend`, `mozilla/addons-server`, `mozilla/addons-linter`, `mozilla/addons-code-manager`, `mozilla/addons-blog`, `mozilla/extension-workshop` and `mozilla/web-ext`.
 
 ## Installing
 
@@ -10,4 +10,4 @@ Once installed, you need to set the `MILESTONER_GITHUB_API_TOKEN` environnement 
 
 ## Running
 
-Run `./milestoner.py`. It accepts no arguments at the moment. It will automatically create missing milestones for the next 5 weeks and close old ones with a due date more than 3 days in the past.
+Run `./milestoner.py`. It accepts no arguments at the moment. It will automatically create missing milestones for the next 6 weeks and close old ones with a due date more than 3 days in the past.

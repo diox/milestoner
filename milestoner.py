@@ -31,7 +31,7 @@ class Milestoner:
             print(response.json())
         return response.json()
 
-    def get_desired_milestones(self, num=5):
+    def get_desired_milestones(self, num=6):
         """Return the list of desired milestone dates.
 
         Note: we end up recomputing this for every repos, which is annoying
@@ -39,7 +39,10 @@ class Milestoner:
         to be a bottleneck anyway."""
         desired_milestones = []
         year, week, day = datetime.date.today().isocalendar()
-        for target in range(week, week + num):
+        # We only want milestones on odd weeks.
+        if not week % 2:
+            week += 1
+        for target in range(week, week + num, 2):
             try:
                 thursday = datetime.date.fromisocalendar(year, target, 4)
             except ValueError:
