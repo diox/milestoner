@@ -39,14 +39,14 @@ class Milestoner:
         to be a bottleneck anyway."""
         desired_milestones = []
         year, week, day = datetime.date.today().isocalendar()
-        # We only want milestones on odd weeks.
-        if not week % 2:
+        # We only want milestones on even weeks.
+        if week % 2:
             week += 1
         for target in range(week, week + num, 2):
             try:
                 thursday = datetime.date.fromisocalendar(year, target, 4)
             except ValueError:
-                thursday = datetime.date.fromisocalendar(year + 1, 1, 4)
+                thursday = datetime.date.fromisocalendar(year + 1, 2, 4)
             desired_milestones.append(thursday)
         return desired_milestones
 
