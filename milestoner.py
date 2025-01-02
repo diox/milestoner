@@ -133,7 +133,7 @@ if __name__ == '__main__':
         'addons-frontend',
         'addons-server',
         'addons-linter',
-        'addons-code-manager',
+        # 'addons-code-manager',
         'addons-blog',
         'extension-workshop',
         'web-ext',
